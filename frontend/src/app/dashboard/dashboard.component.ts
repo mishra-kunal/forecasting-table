@@ -435,11 +435,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   
   saveData() {
-    console.log('Modified Data:', this.data); 
+    //console.log('Modified Data:', this.data); 
     this.authService.saveData(this.data)
     .subscribe({
       next: (response) => {
-        console.log(response);
+        console.log("Data saved succesfully");
       }, 
       error: (error) => {
         console.error(error);
@@ -448,6 +448,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
   
+  saveDataButton(){
+    this.saveData();
+    alert("Data saved successfully!");
+  }
+
   logout(){
     this.authService.logout();
   }
