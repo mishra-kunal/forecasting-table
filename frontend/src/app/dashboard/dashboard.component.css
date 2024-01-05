@@ -1,4 +1,4 @@
-table {
+/* table {
     border-collapse: collapse;
   }
   
@@ -20,11 +20,61 @@ table {
   }
   
   .total-column {
-    background-color: #f0f0f0; /* Set your desired background color for total columns */
+    background-color: #f0f0f0; /* Set your desired background color for total columns 
   }
+  %/
   
-  .total-cell {
-    background-color: #e0e0e0; /* Set your desired background color for total cells */
-    border: 1px solid #ccc; /* Add a border to total cells for better visibility */
+
+
+  /* Add this CSS in your component's stylesheet or a global stylesheet */
+
+/* Add this CSS in your component's stylesheet or a global stylesheet */
+
+/* Add this CSS in your component's stylesheet or a global stylesheet */
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: rgb(242, 205, 183); 
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th.total-column, td.total-cell {
+  background-color: rgba(226, 240, 203, 0.9); /* Light green transparent background for total columns/cells */
+}
+
+/* Button styles */
+button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #9cb1ec; /* Blue color for buttons */
+  color: #180c0c; /* White text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  /* Adjust styles for smaller screens if needed */
+  table {
+    font-size: 14px;
   }
-  
+
+  button {
+    font-size: 14px;
+  }
+}
+
