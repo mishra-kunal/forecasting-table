@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Lato&family=Quicksand:wght@500&display=swap');
+
+
+body{
+    background-color: rgba(39, 37, 64);
+   font-family: 'Quicksand', sans-serif;
+}
