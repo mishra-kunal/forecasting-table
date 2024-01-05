@@ -8,17 +8,17 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string = '';
+  email: string = '';
   password: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
   login() {
-    this.authService.login(this.username, this.password)
+    this.authService.login(this.email, this.password)
       .subscribe({
         next: (response:any) => {
           if (response && response.token) {
             localStorage.setItem('token', response.token);
-            localStorage.setItem('username', this.username)
+            localStorage.setItem('email', this.email)
             this.router.navigate(['/dashboard']);
           } else {
             alert('Invalid credentials. Please try again.');

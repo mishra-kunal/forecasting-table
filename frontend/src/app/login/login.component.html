@@ -1,12 +1,25 @@
 <div>
     <h2>Login</h2>
-    <form>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" [(ngModel)]="username" />
-  
+    <div class="container">
+    <!-- login.component.html -->
+<form>
+  <div>
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" [(ngModel)]="email" />
+  </div>
+
+  <div>
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" [(ngModel)]="password" />
-  
+  </div>
+
+  <div>
       <button type="button" (click)="login()">Login</button>
-    </form>
+  </div>
+</form>
+
+      <img src="assets/home2.png" alt="Image Alt Text" />
+    </div>
+
+    
 </div>
