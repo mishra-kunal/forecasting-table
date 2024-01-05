@@ -8,13 +8,13 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  username: string = '';
+  email: string = '';
   password: string = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
   register() {
-    this.authService.register(this.username, this.password)
+    this.authService.register(this.email, this.password)
       .subscribe({
         next: () => {
           alert('Registration successful! Please login.');

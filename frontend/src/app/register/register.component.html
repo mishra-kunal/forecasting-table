@@ -1,14 +1,25 @@
-<!-- register.component.html -->
 <div>
-    <h2>Register</h2>
-    <form>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" [(ngModel)]="username" />
-  
+  <h2>Register</h2>
+  <div class="container">
+  <!-- login.component.html -->
+<form>
+  <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="email" />
+  </div>
+
+  <div>
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" [(ngModel)]="password" />
-  
-      <button type="button" (click)="register()">Register</button>
-    </form>
   </div>
+
+  <div>
+      <button type="button" (click)="register()">Register</button>
+  </div>
+</form>
+
+    <img src="assets/home2.png" alt="Image Alt Text" />
+  </div>
+
   
+</div>
