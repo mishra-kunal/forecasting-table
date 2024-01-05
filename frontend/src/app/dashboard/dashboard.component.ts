@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
 export class DashboardComponent implements OnInit, OnDestroy {
   data: any[] = [];
   tableData: any[] = [];
-  years: string[] = ['2019', '2020', '2021', '2022', '2023'];
+  years: string[] = [];
 
   private alive = true; // Flag to keep the timer running
   private saveDataInterval$ = new Subject();
@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     .subscribe({
       next: (response) => {
         this.data= response.data;
+        this.extractYears();
         this.tableData = JSON.parse(JSON.stringify(this.data));
         this.tableData = this.processData(this.data);
       }, 
@@ -46,6 +47,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
     this.startSaveDataInterval();
+  }
+
+  extractYears() {
+    const uniqueYears = new Set<string>(); // Explicitly specify string type
+    this.data.forEach(entry => {
+      Object.keys(entry).forEach(key => {
+        if (!['Country', 'Gender', 'AgeGroup'].includes(key)) {
+          uniqueYears.add(key as string); // Cast key to string
+        }
+      });
+    });
+    this.years = Array.from(uniqueYears);
   }
 
   ngOnDestroy() {
@@ -422,6 +435,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   
   saveData() {
+    console.log('Modified Data:', this.data); 
     this.authService.saveData(this.data)
     .subscribe({
       next: (response) => {

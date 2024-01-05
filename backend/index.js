@@ -210,20 +210,30 @@ app.post('/save-data', verifyToken, async (req, res) => {
     const username = req.user.username;
 
     try {
+        // Find the document by username
         let tableData = await TableData.findOne({ username });
+
         if (!tableData) {
+            // If user data doesn't exist, create a new document
+           // console.log('Creating new document');
             tableData = new TableData({ username, data });
         } else {
-            // Update the existing data array with the new data
+            // Replace the entire 'data' field with the new data
+           // console.log('Replacing entire data field');
             tableData.data = data;
         }
+
+        // Save the document
         await tableData.save();
+
+       // console.log('Data saved successfully');
         res.json({ message: 'Data saved successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 
 // Get Data for a User
