@@ -1,0 +1,33 @@
+<button (click)="addNewColumn()">Add New Column</button>
+<button (click)="copyData()">Copy column</button>
+<button (click)="deleteColumn()">Delete column</button>
+<button (click)="saveData()">Save</button>
+<table>
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>Gender</th>
+        <th>Age Group</th>
+        <th *ngFor="let year of getYearList()" [class.total-column]="isTotalColumn(year)">
+            {{ year }}
+          </th>          
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of tableData">
+        <td>{{ row.Country }}</td>
+        <td>{{ row.Gender }}</td>
+        <td>{{ row.AgeGroup }}</td>
+        <td *ngFor="let year of getYearList()">
+          <input
+            type="number"
+            [(ngModel)]="row[year]"
+            [disabled]="row.isTotalRow"
+            [class.total-cell]="isTotalColumn(year) && !row.isTotalRow"
+            (ngModelChange)="onCellValueChange(row, year, $event)"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

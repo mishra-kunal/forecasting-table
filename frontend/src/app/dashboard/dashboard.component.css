@@ -1,0 +1,30 @@
+table {
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  td.total {
+    font-weight: bold;
+  }
+  .total-row {
+    font-weight: bold;
+  }
+  
+  .total-column {
+    background-color: #f0f0f0; /* Set your desired background color for total columns */
+  }
+  
+  .total-cell {
+    background-color: #e0e0e0; /* Set your desired background color for total cells */
+    border: 1px solid #ccc; /* Add a border to total cells for better visibility */
+  }
+  
