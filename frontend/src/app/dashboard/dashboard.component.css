@@ -1,7 +1,11 @@
 #logout{
-  margin-left:60% ;
+  margin-left:30% ;
   background-color: red;
   color: white;
+}
+.username{
+  color:whitesmoke;
+  margin-left:20%;
 }
 table {
   width: 100%;

@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   data: any[] = [];
   tableData: any[] = [];
   years: string[] = [];
+  username:string = "";
 
   private alive = true; // Flag to keep the timer running
   private saveDataInterval$ = new Subject();
@@ -27,9 +28,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.router.navigate(['/login']);
       return;
     }
-    const username = localStorage.getItem("username")|| '';
+    this.username = localStorage.getItem("email")|| '';
 
-    this.authService.getData(username)
+    this.authService.getData(this.username)
     .subscribe({
       next: (response) => {
         this.data= response.data;

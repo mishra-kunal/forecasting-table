@@ -50,7 +50,7 @@ export class AuthService {
   }
 
   isAuthenticated(){
-    if(localStorage.getItem("token") && localStorage.getItem("username")){
+    if(localStorage.getItem("token") && localStorage.getItem("email")){
         return true;
     }
     return false;
