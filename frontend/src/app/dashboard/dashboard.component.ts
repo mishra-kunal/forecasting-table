@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, interval, takeWhile } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,26 +16,34 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private alive = true; // Flag to keep the timer running
   private saveDataInterval$ = new Subject();
 
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+  
   ngOnInit() {
-    // Your data goes here
-    this.data = [
-      { Country: 'Country 1', Gender: 'Male', AgeGroup: 'Age 20-40', '2019': 4, '2020': 5, '2021': 3, '2022': 10, '2023': 3 },
-      { Country: 'Country 1', Gender: 'Male', AgeGroup: 'Age 40-60', '2019': 6, '2020': 2, '2021': 8, '2022': 4, '2023': 5 },
-      { Country: 'Country 1', Gender: 'Male', AgeGroup: 'Age 60-80', '2019': 6, '2020': 6, '2021': 1, '2022': 5, '2023': 10 },
-      { Country: 'Country 1', Gender: 'Female', AgeGroup: 'Age 20-40', '2019': 10, '2020': 2, '2021': 6, '2022': 4, '2023': 10 },
-      { Country: 'Country 1', Gender: 'Female', AgeGroup: 'Age 40-60', '2019': 0, '2020': 6, '2021': 2, '2022': 3, '2023': 1 },
-      { Country: 'Country 1', Gender: 'Female', AgeGroup: 'Age 60-80', '2019': 7, '2020': 9, '2021': 6, '2022': 9, '2023': 2 },
-      { Country: 'Country 2', Gender: 'Male', AgeGroup: 'Age 20-40', '2019': 10, '2020': 0, '2021': 1, '2022': 9, '2023': 7 },
-      { Country: 'Country 2', Gender: 'Male', AgeGroup: 'Age 40-60', '2019': 8, '2020': 0, '2021': 5, '2022': 10, '2023': 0 },
-      { Country: 'Country 2', Gender: 'Male', AgeGroup: 'Age 60-80', '2019': 3, '2020': 1, '2021': 10, '2022': 1, '2023': 4 },
-      { Country: 'Country 2', Gender: 'Female', AgeGroup: 'Age 20-40', '2019': 9, '2020': 3, '2021': 6, '2022': 4, '2023': 0 },
-      { Country: 'Country 2', Gender: 'Female', AgeGroup: 'Age 40-60', '2019': 8, '2020': 5, '2021': 1, '2022': 3, '2023': 8 },
-      { Country: 'Country 2', Gender: 'Female', AgeGroup: 'Age 60-80', '2019': 8, '2020': 4, '2021': 5, '2022': 6, '2023': 7 }
-    ];
+
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    const username = localStorage.getItem("username")|| '';
+
+    this.authService.getData(username)
+    .subscribe({
+      next: (response) => {
+        this.data= response.data;
+        this.tableData = JSON.parse(JSON.stringify(this.data));
+        this.tableData = this.processData(this.data);
+      }, 
+      error: (error) => {
+        console.error(error);
+        alert('Something went wrong!.');
+      }
+    });
 
     // Process data to create the table structure
-    this.tableData = JSON.parse(JSON.stringify(this.data));
-    this.tableData = this.processData(this.data);
+
 
     this.startSaveDataInterval();
   }
@@ -412,7 +422,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   
   saveData() {
-    console.log('Modified Data:', this.data); 
+    this.authService.saveData(this.data)
+    .subscribe({
+      next: (response) => {
+        console.log(response);
+      }, 
+      error: (error) => {
+        console.error(error);
+        alert('Something went wrong!.');
+      }
+    });
   }
   
+  logout(){
+    this.authService.logout();
+  }
 }
